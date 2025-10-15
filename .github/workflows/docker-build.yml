@@ -17,7 +17,7 @@ env:
 
 jobs:
   build-and-push:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - name: 检出代码
@@ -50,17 +50,16 @@ jobs:
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=raw,value=latest,enable={{is_default_branch}}
-    # - name: Free disk space on Ubuntu runner
-    #   if: ${{ env.RUNNER_NAME != 'self-hosted' }}
-    #   uses: kfir4444/free-disk-space@main
-    #   with:
-    #     # frees about 6 GB, warning: may remove required tools
-    #     tool-cache: false
-    #     android: true
-    #     dotnet: true
-    #     haskell: true
-    #     large-packages: true
-    #     swap-storage: true
+    - name: Free disk space on Ubuntu runner
+      uses: kfir4444/free-disk-space@main
+      with:
+        # frees about 6 GB, warning: may remove required tools
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
             
 
     - name: 构建并推送 Docker 镜像
