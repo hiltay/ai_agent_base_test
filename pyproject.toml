@@ -3,7 +3,63 @@ name = "ai-agent-base-test"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
-    "pandas==2.2.3",
+    "torch>=2.5.1",
+    "triton>=3.2.0",
+    "mamba_ssm==2.2.5",
+    "flash_attn==2.8.0.post2",
+    "causal-conv1d>=1.5.2",
+    "einops",
+    "optree",
+    "regex",
+    "omegaconf",
+    "lightning>=2.5.2",
+    "biopython>=1.85",
+    "tqdm>=4.67.1",
+    "swanlab>=0.6.8",
+    "pandas>=2.3.1",
+    "abnumber",
 ]
+[project.urls]
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hnet*"]
+exclude = ["tests*"]
+
+[build-system]
+requires = [
+    "setuptools>=61.0.0",
+    "wheel",
+    "torch",
+    "packaging",
+    "ninja",
+]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.10.5",
+    "nvitop>=1.5.2",
+    "pre-commit>=4.3.0",
+    "ruff>=0.12.8",
+    "seaborn>=0.13.2",
+    "scikit-learn>=1.7.1",
+]
+
+deploy = [
+    "fastapi>=0.116.1",
+    "httpx>=0.28.1",
+    "uvicorn>=0.35.0",
+]
+
+# Ruff 配置：忽略 models/hnet 目录（format/fix/check 均生效）
+[tool.ruff]
+extend-exclude = [
+  "models/hnet",
+]
+
+[tool.uv.sources]
+abnumber = { git = "https://github.com/prihoda/abnumber" }
